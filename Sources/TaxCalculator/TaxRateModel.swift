@@ -11,7 +11,7 @@ public class TaxRateModel: Identifiable, Equatable {
     public var minValue: Double
     public var rate: Double
     
-    init(minValue: Double, rate: Double) {
+    public init(minValue: Double, rate: Double) {
         self.minValue = minValue
         self.rate = rate
     }
