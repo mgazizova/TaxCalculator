@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TaxCalculatorProtocol {
+public protocol TaxCalculatorProtocol {
     func calculateNet(with gross: Double, rates: [TaxRateModel]) -> Double?
     func calculateGross(with net: Double, rates: [TaxRateModel]) -> Double?
 }

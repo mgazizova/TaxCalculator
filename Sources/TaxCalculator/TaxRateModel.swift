@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TaxRateModel: Identifiable, Equatable {
+public class TaxRateModel: Identifiable, Equatable {
     var minValue: Double
     var rate: Double
     
@@ -18,7 +18,7 @@ class TaxRateModel: Identifiable, Equatable {
 }
 
 extension TaxRateModel {
-    static func == (lhs: TaxRateModel, rhs: TaxRateModel) -> Bool {
+    public static func == (lhs: TaxRateModel, rhs: TaxRateModel) -> Bool {
         lhs.rate == rhs.rate && lhs.minValue == rhs.minValue
     }
 }

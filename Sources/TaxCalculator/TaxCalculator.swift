@@ -3,7 +3,7 @@ public struct TaxCalculator: TaxCalculatorProtocol {
         return (100 - value) / 100
     }
     
-    func calculateNet(with gross: Double, rates: [TaxRateModel]) -> Double? {
+    public func calculateNet(with gross: Double, rates: [TaxRateModel]) -> Double? {
         guard rates.count > 0 else { return gross }
         guard gross > rates[0].minValue else { return gross }
         
@@ -27,7 +27,7 @@ public struct TaxCalculator: TaxCalculatorProtocol {
         return net
     }
     
-    func calculateGross(with net: Double, rates: [TaxRateModel]) -> Double? {
+    public func calculateGross(with net: Double, rates: [TaxRateModel]) -> Double? {
         guard rates.count > 0 else { return net }
         guard net > rates[0].minValue else { return net }
         
