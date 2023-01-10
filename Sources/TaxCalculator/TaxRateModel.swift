@@ -8,8 +8,8 @@
 import Foundation
 
 public class TaxRateModel: Identifiable, Equatable {
-    var minValue: Double
-    var rate: Double
+    public var minValue: Double
+    public var rate: Double
     
     init(minValue: Double, rate: Double) {
         self.minValue = minValue
