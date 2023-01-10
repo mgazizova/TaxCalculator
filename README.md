@@ -1,3 +1,3 @@
 # TaxCalculator
 
-A description of this package.
+The tool to calculate money with taxes.
