@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TaxRateModel: Identifiable {
+public struct TaxRateModel: Identifiable, Equatable {
     public var id = UUID()
     public var minValue: Double
     public var rate: Double
