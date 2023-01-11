@@ -7,18 +7,13 @@
 
 import Foundation
 
-public class TaxRateModel: Identifiable, Equatable {
+public struct TaxRateModel: Identifiable {
+    public var id = UUID()
     public var minValue: Double
     public var rate: Double
     
     public init(minValue: Double, rate: Double) {
         self.minValue = minValue
         self.rate = rate
-    }
-}
-
-extension TaxRateModel {
-    public static func == (lhs: TaxRateModel, rhs: TaxRateModel) -> Bool {
-        lhs.rate == rhs.rate && lhs.minValue == rhs.minValue
     }
 }
