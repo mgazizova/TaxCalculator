@@ -1,9 +1,17 @@
-public struct TaxCalculator: TaxCalculatorProtocol {
+public class TaxCalculator {
+    private var rates: [TaxRateModel]
+    
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
     
-    public func calculateNet(with gross: Double, rates: [TaxRateModel]) -> Double? {
+    public var recalculate: () -> Void = { }
+    
+    public func setRates(_ rates: [TaxRateModel]) {
+        self.rates = rates
+    }
+    
+    public func calculateNet(with gross: Double) -> Double? {
         guard rates.count > 0 else { return gross }
         guard gross > rates[0].minValue else { return gross }
         
@@ -27,7 +35,7 @@ public struct TaxCalculator: TaxCalculatorProtocol {
         return net
     }
     
-    public func calculateGross(with net: Double, rates: [TaxRateModel]) -> Double? {
+    public func calculateGross(with net: Double) -> Double? {
         guard rates.count > 0 else { return net }
         guard net > rates[0].minValue else { return net }
         
@@ -53,6 +61,7 @@ public struct TaxCalculator: TaxCalculatorProtocol {
         return gross
     }
     
-    public init() {
+    public init(with initialRates: [TaxRateModel] = []) {
+        rates = initialRates
     }
 }
