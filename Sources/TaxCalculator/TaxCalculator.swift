@@ -59,6 +59,7 @@ public class TaxCalculator {
         return gross
     }
     
-    public init() {
+    public init(with initialRates: [TaxRateModel] = []) {
+        rates = initialRates
     }
 }
