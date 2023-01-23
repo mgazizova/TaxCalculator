@@ -1,9 +1,11 @@
 public class TaxCalculator {
+    public rates: [TaxRateModel]
+    
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
     
-    public func calculateNet(with gross: Double, rates: [TaxRateModel]) -> Double? {
+    public func calculateNet(with gross: Double) -> Double? {
         guard rates.count > 0 else { return gross }
         guard gross > rates[0].minValue else { return gross }
         
@@ -27,7 +29,7 @@ public class TaxCalculator {
         return net
     }
     
-    public func calculateGross(with net: Double, rates: [TaxRateModel]) -> Double? {
+    public func calculateGross(with net: Double) -> Double? {
         guard rates.count > 0 else { return net }
         guard net > rates[0].minValue else { return net }
         
