@@ -1,4 +1,4 @@
-public struct TaxCalculator {
+public class TaxCalculator {
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
