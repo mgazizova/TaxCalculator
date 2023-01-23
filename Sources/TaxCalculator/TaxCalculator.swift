@@ -1,8 +1,12 @@
 public class TaxCalculator {
-    public rates: [TaxRateModel]
+    private var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
+    }
+    
+    public func setRates(_ rates: [TaxRateModel]) {
+        self.rates = rates
     }
     
     public func calculateNet(with gross: Double) -> Double? {
