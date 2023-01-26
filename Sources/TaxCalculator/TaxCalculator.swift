@@ -1,5 +1,5 @@
 public class TaxCalculator {
-    public var rates: [TaxRateModel]
+    private var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
