@@ -1,14 +1,19 @@
+import Foundation
+
 public class TaxCalculator {
-    private var rates: [TaxRateModel]
+    public var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
     
+    @Published public var hasTaxRatesChanged = false
+    
     public var recalculate: () -> Void = { }
     
     public func setRates(_ rates: [TaxRateModel]) {
-        self.rates = rates
+        self.rates = rates.sorted(by: {$0.minValue < $1.minValue})
+        recalculate()
     }
     
     public func calculateNet(with gross: Double) -> Double? {
