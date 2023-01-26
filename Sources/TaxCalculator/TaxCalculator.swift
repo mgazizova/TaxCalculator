@@ -5,6 +5,8 @@ public class TaxCalculator {
         return (100 - value) / 100
     }
     
+    public var recalculate: () -> Void = { }
+    
     public func setRates(_ rates: [TaxRateModel]) {
         self.rates = rates
     }
