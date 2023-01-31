@@ -1,14 +1,20 @@
-public class TaxCalculator {
+import Foundation
+
+@available(macOS 10.15, *)
+public class TaxCalculator: ObservableObject {
     private var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
     
+    @Published public var hasTaxRatesChanged = false
+    
     public var recalculate: () -> Void = { }
     
     public func setRates(_ rates: [TaxRateModel]) {
         self.rates = rates
+        recalculate()
     }
     
     public func calculateNet(with gross: Double) -> Double? {
