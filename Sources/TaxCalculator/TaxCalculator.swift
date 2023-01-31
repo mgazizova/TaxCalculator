@@ -13,7 +13,7 @@ public class TaxCalculator: ObservableObject {
     public var recalculate: () -> Void = { }
     
     public func setRates(_ rates: [TaxRateModel]) {
-        self.rates = rates
+        self.rates = rates.sorted(by: {$0.minValue > $1.minValue})
         recalculate()
     }
     
