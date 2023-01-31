@@ -2,7 +2,7 @@ import Foundation
 
 @available(macOS 10.15, *)
 public class TaxCalculator: ObservableObject {
-    private var rates: [TaxRateModel]
+    public var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
