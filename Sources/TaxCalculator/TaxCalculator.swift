@@ -1,7 +1,6 @@
 import Foundation
 
-@available(macOS 10.15, *)
-public class TaxCalculator: ObservableObject {
+public class TaxCalculator {
     public var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
