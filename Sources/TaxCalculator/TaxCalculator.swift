@@ -1,13 +1,13 @@
 import Foundation
 
 public class TaxCalculator {
-    public var rates: [TaxRateModel]
+    @Published public var rates: [TaxRateModel]
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
     
-    @Published public var hasTaxRatesChanged = false
+//    @Published public var hasTaxRatesChanged = false
     
     public var recalculate: () -> Void = { }
     
