@@ -1,21 +1,22 @@
 import Foundation
+import Combine
 
-public class TaxCalculator {
+@available(macOS 10.15, *)
+public class TaxCalculator: ObservableObject {
     @Published public var rates: [TaxRateModel]
+
+    public var haveRatesChangedPublisher: AnyPublisher<Bool, Never> {
+        $rates
+            .map { _ in
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
     
     private func percent(by value: Double) -> Double {
         return (100 - value) / 100
     }
-    
-//    @Published public var hasTaxRatesChanged = false
-    
-    public var recalculate: () -> Void = { }
-    
-    public func setRates(_ rates: [TaxRateModel]) {
-        self.rates = rates.sorted(by: {$0.minValue < $1.minValue})
-        recalculate()
-    }
-    
+            
     public func calculateNet(with gross: Double) -> Double? {
         guard rates.count > 0 else { return gross }
         guard gross > rates[0].minValue else { return gross }
