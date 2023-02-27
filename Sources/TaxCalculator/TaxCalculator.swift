@@ -5,11 +5,29 @@ import Combine
 public class TaxCalculator: ObservableObject {
     @Published public var rates: [TaxRateModel]
 
-    public var haveRatesChangedPublisher: AnyPublisher<Bool, Never> {
+    @available(macOS 11.0, *)
+    public var haveRatesChangedPublisher: AnyPublisher<Bool, TaxRateError> {
         $rates
-            .map { _ in
-                return true
+            .flatMap { rates -> AnyPublisher<Bool, TaxRateError> in
+                self.ratesHaveChanged()
             }
+            .receive(on: DispatchQueue.main)
+            .share()
+            .eraseToAnyPublisher()
+    }
+    
+    private func ratesHaveChanged() -> AnyPublisher<Bool, TaxRateError> {
+        let filtered = rates.filter { rate in
+            rate.rate < 0 && rate.rate > 100
+        }
+        
+        guard filtered.count == 0 else {
+            return Fail(error: TaxRateError.invalidTaxRate)
+                .eraseToAnyPublisher()
+        }
+        
+        return Just(true)
+            .setFailureType(to: TaxRateError.self)
             .eraseToAnyPublisher()
     }
     
@@ -69,5 +87,16 @@ public class TaxCalculator: ObservableObject {
     
     public init(with initialRates: [TaxRateModel] = []) {
         rates = initialRates
+    }
+}
+
+public enum TaxRateError: Error {
+    case invalidTaxRate
+    
+    func message() -> String {
+        switch self {
+        case .invalidTaxRate:
+            return "Tax rate value must be from 0 to 100"
+        }
     }
 }
