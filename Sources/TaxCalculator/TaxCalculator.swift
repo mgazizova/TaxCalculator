@@ -30,10 +30,6 @@ public class TaxCalculator: ObservableObject {
             .setFailureType(to: TaxRateError.self)
             .eraseToAnyPublisher()
     }
-    
-    private func percent(by value: Double) -> Double {
-        return (100 - value) / 100
-    }
             
     public func calculateNet(with gross: Double) -> Double? {
         guard rates.count > 0 else { return gross }
@@ -43,7 +39,7 @@ public class TaxCalculator: ObservableObject {
         var rate = 0.0
         
         for i in 1..<rates.count {
-            rate = percent(by: rates[i-1].rate)
+            rate = rates[i-1].rate.suplementToOne()
             
             guard gross > rates[i].minValue else {
                 net += (gross - rates[i-1].minValue) * rate
@@ -54,7 +50,7 @@ public class TaxCalculator: ObservableObject {
         }
         
         guard let lastTax = rates.last else { return net }
-        net += (gross - lastTax.minValue) * percent(by: lastTax.rate)
+        net += (gross - lastTax.minValue) * lastTax.rate.suplementToOne()
         
         return net
     }
@@ -68,7 +64,7 @@ public class TaxCalculator: ObservableObject {
         var rate = 0.0
         
         for i in 1..<rates.count {
-            rate = percent(by: rates[i-1].rate)
+            rate = rates[i-1].rate.suplementToOne()
             
             guard net / rate > rates[i].minValue else {
                 gross += (net - gapNet) / rate
@@ -80,7 +76,7 @@ public class TaxCalculator: ObservableObject {
         }
         
         guard let lasTax = rates.last else { return gross }
-        gross += (net - gapNet) / percent(by: lasTax.rate)
+        gross += (net - gapNet) / lasTax.rate.suplementToOne()
         
         return gross
     }
@@ -98,5 +94,11 @@ public enum TaxRateError: Error {
         case .invalidTaxRate:
             return "Tax rate value must be from 0 to 100"
         }
+    }
+}
+
+extension Double {
+    func suplementToOne() -> Double{
+        return 1 - self
     }
 }
