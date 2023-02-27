@@ -1,11 +1,11 @@
 import Foundation
 import Combine
 
-@available(macOS 10.15, *)
+@available(iOS 14.0, *)
+@available(macOS 11.0, *)
 public class TaxCalculator: ObservableObject {
     @Published public var rates: [TaxRateModel]
 
-    @available(macOS 11.0, *)
     public var haveRatesChangedPublisher: AnyPublisher<Bool, TaxRateError> {
         $rates
             .flatMap { rates -> AnyPublisher<Bool, TaxRateError> in
