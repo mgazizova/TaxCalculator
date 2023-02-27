@@ -6,13 +6,11 @@ import Combine
 public class TaxCalculator: ObservableObject {
     @Published public var rates: [TaxRateModel]
 
-    public var haveRatesChangedPublisher: AnyPublisher<Bool, TaxRateError> {
+    public var haveRatesChangedPublisher: AnyPublisher<Bool, Never> {
         $rates
-            .flatMap { rates -> AnyPublisher<Bool, TaxRateError> in
-                self.ratesHaveChanged()
+            .map { _ in
+                return true
             }
-            .receive(on: DispatchQueue.main)
-            .share()
             .eraseToAnyPublisher()
     }
     
