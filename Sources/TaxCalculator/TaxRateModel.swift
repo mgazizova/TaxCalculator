@@ -12,11 +12,12 @@ public struct TaxRateModel: Identifiable, Equatable, Hashable, Comparable {
         return lhs.minValue < rhs.minValue
     }
     
-    public var id = UUID()
+    public var id: UUID
     public var minValue: Double
     public var rate: Double
     
-    public init(minValue: Double, rate: Double) {
+    public init(id: UUID?, minValue: Double, rate: Double) {
+        self.id = id ?? UUID()
         self.minValue = minValue
         self.rate = rate
     }
